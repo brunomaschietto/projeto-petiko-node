@@ -1,7 +1,7 @@
 import { PalletDataBase } from "../database/PalletDataBase";
 import { SignupInputDTO } from "../dtos/palletDTO";
 import { BadRequestError } from "../errors/BadRequestError";
-import { User } from "../models/User";
+import { Pallet } from "../models/Pallet";
 
 export class PalletBusiness {
   constructor(private palletDataBase: PalletDataBase) {}
@@ -24,10 +24,23 @@ export class PalletBusiness {
       throw new BadRequestError("'imagem' deve ser string");
     }
 
-    const newUser = new User(cpf, telefone, email, imagem);
+    const newPallet = new Pallet(cpf, telefone, email, imagem);
 
-    const userDB = newUser.toDBModel();
+    const palletDB = newPallet.toDBModel();
 
-    await this.palletDataBase.insert(userDB);
+    await this.palletDataBase.insert(palletDB);
+  };
+  public getPallets = async () => {
+    const palletsDB = await this.palletDataBase.getPallets();
+    
+    const pallets = palletsDB.map((palletDB) => {
+      return new Pallet(
+        palletDB.cpf,
+        palletDB.telefone,
+        palletDB.email,
+        palletDB.imagem
+      );
+    });
+    return pallets
   };
 }

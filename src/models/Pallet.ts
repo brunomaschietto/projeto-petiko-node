@@ -1,6 +1,6 @@
-import { UserDB } from "../interfaces/types";
+import { PalletDB } from "../interfaces/types";
 
-export class User {
+export class Pallet {
   constructor(
     private cpf: string,
     private telefone: string,
@@ -37,7 +37,7 @@ export class User {
   public setImagem(value: string) {
     this.imagem = value;
   }
-  public toDBModel(): UserDB {
+  public toDBModel(): PalletDB {
     return {
       cpf: this.cpf,
       telefone: this.telefone,

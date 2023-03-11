@@ -11,4 +11,5 @@ const palletController = new PalletController(
   )
 );
 
+palletRouter.get('/', palletController.getPallets);
 palletRouter.post("/signup", palletController.signup);

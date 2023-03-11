@@ -1,4 +1,4 @@
-export interface UserDB {
+export interface PalletDB {
   cpf: string;
   telefone: string;
   email: string;

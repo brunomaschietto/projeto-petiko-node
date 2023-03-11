@@ -13,8 +13,26 @@ export class PalletController {
         imagem: req.body.imagem,
       };
       await this.palletBusiness.signup(input);
-      const output = "Cadastrado com sucesso"
-      res.status(200).send(output)
+      const output = "Cadastrado com sucesso";
+      res.status(200).send(output);
+    } catch (error) {
+      console.log(error);
+
+      if (req.statusCode === 200) {
+        res.status(500);
+      }
+
+      if (error instanceof Error) {
+        res.send(error.message);
+      } else {
+        res.send("Erro inesperado");
+      }
+    }
+  };
+  public getPallets = async (req: Request, res: Response) => {
+    try {
+      const output = await this.palletBusiness.getPallets();
+      res.status(200).send(output);
     } catch (error) {
       console.log(error);
 
